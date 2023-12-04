@@ -1,3 +1,5 @@
+import {getAllMovies} from "./movies-api";
+
 export function createMovieElt(movieData)
 {
     const articleItem = document.createElement("article");
@@ -13,4 +15,18 @@ export function createMovieElt(movieData)
     divInfo.appendChild(divTitle);
 
     return articleItem;
+}
+
+export function updateMoviesElt()
+{
+    const moviesArticle = document.querySelector("article.movies-list");
+
+    getAllMovies()
+        .then(movies => {
+            moviesArticle.innerHTML = '';
+
+            movies.forEach(movie => {
+                moviesArticle.appendChild(createMovieElt(movie));
+            });
+        });
 }
