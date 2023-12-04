@@ -1,0 +1,158 @@
+html, body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+  background-color: #000;
+  color: #ccc;
+}
+
+.app {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  font-size: 1.2em;
+  flex-direction: column;
+  background-color: #333;
+}
+
+.button {
+  background-color: #666;
+  color: #ccc;
+  border: 2px solid #ccc;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3em;
+  height: 3em;
+  cursor: pointer;
+}
+.button:hover {
+  color: #eee;
+  border: 2px solid #eee;
+}
+.button:disabled {
+  color: #999;
+  border: 2px solid #999;
+  cursor: default;
+}
+
+.app__header {
+  padding: .5em;
+  font-size: 3em;
+  text-align: center;
+}
+
+.movies-list {
+  flex: 1;
+  display: flex;
+  gap: .5em;
+  padding: .5em;
+  background-color: #111;
+  margin: 2px;
+  border-radius: 3px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  overflow-y: auto;
+}
+
+.pagination {
+  display: flex;
+  gap: .5em;
+  padding: .5em;
+}
+.pagination__info {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.movie-item {
+    width: 250px;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+}
+.movie-item__poster {
+  flex: 1;
+  width: 100%;
+}
+.movie-item__info {
+    position: absolute;
+    background-color: rgba(0,0,0,.7);
+    box-shadow: 0 0 1em 1em rgba(0,0,0,.7);
+    bottom: 0;
+    width: 100%;
+}
+
+.request-parameters {
+  display: flex;
+}
+.sort {
+  display: flex;
+  flex-direction: column;
+  gap: .25em;
+  border-radius: 3px;
+}
+.sort__button {
+  width: auto;
+  height: auto;
+  font-size: .8em;
+  background-color: transparent;
+  justify-content: space-between;
+  padding: 0 .5em;
+}
+.sort input[type="radio"] {
+  display: none;
+}
+input[type="radio"]:checked ~ .sort__button {
+  background-color: #666;
+}
+
+.loading {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  font-size: 2em;
+  gap: .5em;
+  animation: loading-size 1s ease-out infinite;
+}
+.loading::before {
+  content: "";
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  border: .2em solid #ccc;
+  border-color: #ccc transparent #ccc transparent;
+  animation: loading-rotate 1.2s linear infinite;
+}
+@keyframes loading-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loading-size {
+  0% {
+    font-size: 1em;
+  }
+  10% {
+    font-size: 1.2em;
+  }
+  20% {
+    font-size: 1em;
+  }
+  100% {
+    font-size: 1em;
+  }
+}
+
+.filters {
+  flex: 1;
+  border-radius: 3px;
+}
