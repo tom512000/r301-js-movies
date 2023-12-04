@@ -1,4 +1,4 @@
-import {getAllMovies} from "./movies-api";
+import {API_URL, getAllMovies} from "./movies-api";
 
 export function createMovieElt(movieData)
 {
@@ -29,4 +29,9 @@ export function updateMoviesElt()
                 moviesArticle.appendChild(createMovieElt(movie));
             });
         });
+}
+
+export function posterUrl(imagePath, size = 'original')
+{
+    return `${API_URL}/images/${imagePath}/${size}`;
 }
