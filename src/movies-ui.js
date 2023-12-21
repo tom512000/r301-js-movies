@@ -26,10 +26,11 @@ export function createMovieElt(movieData)
 export function updateMoviesElt()
 {
     const moviesArticle = document.querySelector("article.movies-list");
+    setLoading();
 
     getAllMovies()
         .then(({ collection }) => {
-            moviesArticle.innerHTML = '';
+            emptyElt(moviesArticle);
 
             collection.forEach(movie => {
                 const movieElement = createMovieElt(movie);
@@ -92,4 +93,18 @@ export function updatePaginationElt(pagination)
     infoPagination.className = "pagination__info";
     infoPagination.textContent = `${pagination.current}/${pagination.last}`;
     navPagination.appendChild(infoPagination);
+}
+
+export function setLoading()
+{
+    const navPagination = document.querySelector("nav.pagination");
+    emptyElt(navPagination);
+
+    const moviesContainer = document.querySelector('article.movies-list');
+    emptyElt(moviesContainer);
+
+    const loadingArticle = document.createElement('article');
+    loadingArticle.className = "loading";
+    loadingArticle.textContent = "Loading...";
+    moviesContainer.appendChild(loadingArticle);
 }
