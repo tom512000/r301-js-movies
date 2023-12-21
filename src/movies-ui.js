@@ -37,3 +37,22 @@ export function updateMoviesElt()
             });
         });
 }
+
+export function createPaginationButtonElt(materialIcon, isDisabled, page)
+{
+    const buttonPagination = document.createElement("button");
+    buttonPagination.className = "button";
+    buttonPagination.type = "button";
+    buttonPagination.disabled = isDisabled;
+    buttonPagination.addEventListener("click", () => {
+        updateMoviesElt(page);
+    });
+
+    const spanButton = document.createElement("span");
+    spanButton.className = "material-symbols-outlined";
+    spanButton.innerText = page;
+    spanButton.textContent = materialIcon;
+    buttonPagination.appendChild(spanButton);
+
+    return buttonPagination;
+}
