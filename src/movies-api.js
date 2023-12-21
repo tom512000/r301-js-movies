@@ -4,7 +4,8 @@ export function getAllMovies()
 {
     return fetch(`${API_URL}/movies`)
         .then((response) =>
-        response.json());
+            response.json()
+        );
 }
 
 export function posterUrl(imagePath, size = "original")
@@ -14,12 +15,34 @@ export function posterUrl(imagePath, size = "original")
 
 export function extractPaginationFromHeaders(response)
 {
-    const paginationHeaders = response.headers;
+    const headers = response.headers;
 
-    const current = parseInt(paginationHeaders
+    const current = parseInt(headers
         .get("Pagination-Current-Page"), 10) || 1;
-    const last = parseInt(paginationHeaders
+    const last = parseInt(headers
         .get("Pagination-Last-Page"), 10) || 1;
 
     return {current, last};
+}
+
+export function extractCollectionAndPagination(response)
+{
+    const headers = response.headers;
+    const promise = response.json();
+
+    const pagination = {
+        current: parseInt(headers
+            .get("Pagination-Current-Page"), 10) || 1,
+        last: parseInt(headers
+            .get("Pagination-Last-Page"), 10) || 1
+    };
+
+    return Promise
+        .all([promise, pagination])
+        .then(([
+            collection,
+            pagination
+        ]) => {
+        return { collection, pagination };
+    });
 }
