@@ -28,11 +28,12 @@ export function updateMoviesElt()
     const moviesArticle = document.querySelector("article.movies-list");
 
     getAllMovies()
-        .then(movies => {
+        .then(({ collection }) => {
             moviesArticle.innerHTML = '';
 
-            movies.forEach(movie => {
-                moviesArticle.appendChild(createMovieElt(movie));
+            collection.forEach(movie => {
+                const movieElement = createMovieElt(movie);
+                moviesArticle.appendChild(movieElement);
             });
         });
 }

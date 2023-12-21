@@ -1,10 +1,9 @@
 export const API_URL = "http://movies-api";
 
-export function getAllMovies()
-{
+export function getAllMovies() {
     return fetch(`${API_URL}/movies`)
-        .then((response) =>
-            response.json()
+        .then(response =>
+            extractCollectionAndPagination(response)
         );
 }
 

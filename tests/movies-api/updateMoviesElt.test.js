@@ -5,17 +5,18 @@
 import { getAllMovies } from "../../src/movies-api";
 import { updateMoviesElt } from "../../src/movies-ui";
 
-const json = [
+const collection = [
   { id: "1", title: "title 1" },
   { id: "2", title: "title 2" },
 ];
+const pagination = { current: 12, last: 42 };
 
 jest.mock("../../src/movies-api", () => {
   const moviesApi = jest.requireActual("../../src/movies-api");
   return {
     __esModule: true,
     ...moviesApi,
-    getAllMovies: jest.fn(() => Promise.resolve(json)),
+    getAllMovies: jest.fn(() => Promise.resolve({ collection, pagination })),
   };
 });
 
@@ -43,8 +44,8 @@ describe("updateMoviesElt", () => {
     updateMoviesElt();
     getAllMovies.mock.results[0].value.then(() => {
       const items = document.body.querySelectorAll(".movie-item__title");
-      expect(items[0].innerHTML).toMatch(new RegExp(json[0].title));
-      expect(items[1].innerHTML).toMatch(new RegExp(json[1].title));
+      expect(items[0].innerHTML).toMatch(new RegExp(collection[0].title));
+      expect(items[1].innerHTML).toMatch(new RegExp(collection[1].title));
     });
   });
 });

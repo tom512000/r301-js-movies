@@ -5,11 +5,17 @@
 import { API_URL, getAllMovies } from "../../src/movies-api";
 
 describe("getAllMovies", () => {
-  const json = [{ id: "1", title: "title 1" }];
+  const collection = [{ title: "Movie Title" }];
+  const headers = new Headers();
+  headers.append("Pagination-Current-Page", 12);
+  headers.append("Pagination-Last-Page", 42);
+  const json = () => Promise.resolve(collection);
+
   beforeEach(() => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
-        json: () => Promise.resolve(json),
+        headers,
+        json,
       }),
     );
     global.fetch.mockClear();
@@ -22,6 +28,9 @@ describe("getAllMovies", () => {
   });
 
   test("must return the JSON object from the body response", async () => {
-    expect(await getAllMovies()).toEqual(json);
+    expect(await getAllMovies()).toEqual({
+      collection,
+      pagination: { current: 12, last: 42 },
+    });
   });
 });
