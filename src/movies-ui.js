@@ -1,9 +1,15 @@
-import {getAllMovies} from "./movies-api";
+import {getAllMovies, posterUrl} from "./movies-api";
 
 export function createMovieElt(movieData)
 {
     const articleItem = document.createElement("article");
     articleItem.className = "movie-item";
+
+    const imgMovie = document.createElement("img");
+    imgMovie.className = "movie-item__poster";
+    imgMovie.src = posterUrl(movieData.poster, "medium");
+    imgMovie.alt = `poster of '${movieData.title}'`;
+    articleItem.appendChild(imgMovie);
 
     const divInfo = document.createElement("div");
     divInfo.className = "movie-item__info";

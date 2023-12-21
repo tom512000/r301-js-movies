@@ -40,3 +40,28 @@ describe("createMovieElt", () => {
     ).toMatch(new RegExp(movieData.title));
   });
 });
+
+describe("createMovieElt", () => {
+  let movieData;
+  beforeEach(() => {
+    movieData = { title: "Movie Title", poster: "/poster_path" };
+  });
+
+  test('return an HTML element that contain an HTML element "img.movie-item__poster"', () => {
+    expect(
+        createMovieElt(movieData).querySelector("img.movie-item__poster"),
+    ).not.toBe(null);
+  });
+
+  test('the poster element had a src attribut with value "http://movies-api/poster_path/medium"', () => {
+    expect(
+        createMovieElt(movieData).querySelector("img.movie-item__poster").src,
+    ).toBe("http://movies-api/poster_path/medium");
+  });
+
+  test("the poster element had an alt attribut with value \"poster of 'Movie Title'\"", () => {
+    expect(
+        createMovieElt(movieData).querySelector("img.movie-item__poster").alt,
+    ).toBe("poster of 'Movie Title'");
+  });
+});
