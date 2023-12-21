@@ -56,3 +56,10 @@ export function createPaginationButtonElt(materialIcon, isDisabled, page)
 
     return buttonPagination;
 }
+
+export function emptyElt(elt)
+{
+    while (elt.hasChildNodes()) {
+        elt.removeChild(elt.firstChild);
+    }
+}
