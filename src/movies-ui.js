@@ -63,3 +63,33 @@ export function emptyElt(elt)
         elt.removeChild(elt.firstChild);
     }
 }
+
+export function updatePaginationElt(pagination)
+{
+    const navPagination = document.querySelector("nav.pagination");
+    emptyElt(navPagination);
+
+    if (pagination.last === 1)
+        return;
+
+    navPagination.appendChild(
+        createPaginationButtonElt('first_page', pagination.current === 1, 1)
+    );
+
+    navPagination.appendChild(
+        createPaginationButtonElt('navigate_before', pagination.current === 1, pagination.current - 1)
+    );
+
+    navPagination.appendChild(
+        createPaginationButtonElt('navigate_next', pagination.current === pagination.last, pagination.current + 1)
+    );
+
+    navPagination.appendChild(
+        createPaginationButtonElt('last_page', pagination.current === pagination.last, pagination.last)
+    );
+
+    const infoPagination = document.createElement("span");
+    infoPagination.className = "pagination__info";
+    infoPagination.textContent = `${pagination.current}/${pagination.last}`;
+    navPagination.appendChild(infoPagination);
+}
